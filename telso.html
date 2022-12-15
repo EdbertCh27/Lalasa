@@ -50,49 +50,49 @@
                   </div>
                 </div>
 
-                <div id="PhotographyRadioNya" style="display: none">
+                <form id="PhotographyRadioNya" style="display: none">
                   <p>Photography</p>
                   <div>
-                    <input type="radio" name="Photography" value="350000" id="One Hour" />
+                    <input type="radio" name="Photography" value=350000 id="One Hour" />
                     <label for="p">1 Hour</label>
                   </div>
                   <div>
-                    <input type="radio" name="Photography" value="600000" id="Two Hour" />
+                    <input type="radio" name="Photography" value=600000 id="Two Hour" />
                     <label for="c">2 Hour</label>
                   </div>
                   <div>
-                    <input type="radio" name="Photography" value="750000" id="Three Hour" />
+                    <input type="radio" name="Photography" value=750000 id="Three Hour" />
                     <label for="pc">3 Hour</label>
                   </div>
-                </div>
+                </form>
 
-                <div id="ConceptingRadioNya" style="display: none">
+                <form id="ConceptingRadioNya" style="display: none">
                   <p>Concepting</p>
                   <div>
-                    <input type="radio" name="Concepting" value="200000" id="1 Concept Mood Board" />
+                    <input type="radio" name="Concepting" value=200000 id="1 Concept Mood Board" />
                     <label for="p">1 Concept mood board</label>
                   </div>
                   <div>
-                    <input type="radio" name="Concepting" value="350000" id="2 Concept Mood Board" />
+                    <input type="radio" name="Concepting" value=350000 id="2 Concept Mood Board" />
                     <label for="c">2 Concept mood board</label>
                   </div>
-                </div>
+                </form>
 
-                <div id="EditedPhotosRadioNya" style="display: none">
+                <form id="EditedPhotosRadioNya" style="display: none">
                   <p>Edited Photos (Detail touch up + custom filter)</p>
                   <div>
-                    <input type="radio" name="EditedPhotos" value="150000" id="5 Edited Photos" />
+                    <input type="radio" name="EditedPhotos" value=150000 id="5 Edited Photos" />
                     <label for="p">5</label>
                   </div>
                   <div>
-                    <input type="radio" name="EditedPhotos" value="200000" id="10 Edited Photos" />
+                    <input type="radio" name="EditedPhotos" value=200000 id="10 Edited Photos" />
                     <label for="c">10</label>
                   </div>
                   <div>
-                    <input type="radio" name="EditedPhotos" value="255000" id="15 Edited Photos" />
+                    <input type="radio" name="EditedPhotos" value=255000 id="15 Edited Photos" />
                     <label for="pc">15</label>
                   </div>
-                </div>
+                </form>
 
                 <h6 class="mt-4 font-weight-bold">Estimated Cost</h2>
                   <div>
@@ -180,7 +180,7 @@
               parseInt(ConcpetingNya) +
               parseInt(EditedPhotosNya);
             tagWhatsapp += ", Estimated Costnya adalah : Rp." + total;
-            EstimatedCost.value = total;
+            // EstimatedCost.value = total;
 
             //Cobaen
             // output.innerText = tagWhatsapp
@@ -189,6 +189,71 @@
 
             window.open(tagWhatsapp, "_blank");
           });
+          const formatter = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'IDR',
+
+            // These options are needed to round to whole numbers if that's what you want.
+            //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+            maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+          });
+          //get value of all radio buttons
+          //if PhotographyradioNya is checked
+          // if(radioButtonPhotography.checked){
+          //   serviceNya = parseInt(
+          //     document.querySelector('input[name="Photography"]:checked').value
+          //   );
+          //   EstimatedCost.value = (formatter.format(serviceNya));
+          // }
+
+
+
+          radioButtonPhotography.forEach((radioButton) => {
+            radioButton.addEventListener("change", () => {
+              for (const radioButton of radioButtonPhotography) {
+                if (radioButton.checked) {
+                  serviceNya = parseInt(
+                    document.querySelector('input[name="Photography"]:checked').value
+
+                  );
+                  EstimatedCost.value = (formatter.format(serviceNya));
+                  break;
+
+                }
+              }
+            });
+          });
+
+          radioButtonConcepting.forEach((radioButton) => {
+            radioButton.addEventListener("change", () => {
+              for (const radioButton of radioButtonConcepting) {
+                if (radioButton.checked) {
+                  serviceNya = parseInt(
+                    document.querySelector('input[name="Concepting"]:checked').value
+
+                  );
+                  EstimatedCost.value = (formatter.format(serviceNya));
+                  break;
+                }
+              }
+            });
+          });
+          radioButtonEditedPhotos.forEach((radioButton) => {
+            radioButton.addEventListener("change", () => {
+              for (const radioButton of radioButtonEditedPhotos) {
+                if (radioButton.checked) {
+                  serviceNya = parseInt(
+                    document.querySelector('input[name="Photography"]:checked').value
+
+                  ) + parseInt(document.querySelector('input[name="EditedPhotos"]:checked').value);
+                  EstimatedCost.value = (formatter.format(serviceNya));
+                  break;
+                }
+              }
+            });
+          });
+
+
 
 
           var radioService = document.querySelectorAll("input[name='service']");
@@ -228,7 +293,7 @@
           });
           findSelected();
 
-        
+
         </script>
     </body>
   </php>
